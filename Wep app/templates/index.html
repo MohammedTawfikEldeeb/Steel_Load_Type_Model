@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Steel Industry</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="static/css/style.css">
+	</head>
+
+	<body>
+
+		<div class="wrapper" style="background-image: url('static/images/img.png');">
+			<div class="inner">
+
+				<div class="image-holder">
+					
+					<img src="static/images/img.png" alt="">
+				</div>
+				<form method="GET" action="/predict">
+					
+					<h3>Steel Industry</h3>
+					{% if steel_type == 0 %}
+						<p style="font-size: 20px; text-align: center; color: #000; font-weight: 700">Predicted Steel Load Type : <br><span style="color: #0080ff;"><b>  Light Load</b></span></p>
+						
+					{% elif steel_type == 1 %}
+						<p style="font-size: 20px; text-align: center; color: #000; font-weight: 700">Predicted Steel Load Type : <br><span style="color: #0080ff;"><b>  Medium Load</b></span></p>
+					{% elif steel_type == 2 %}
+						<p style="font-size: 20px; text-align: center; color: #000; font-weight: 700">Predicted Steel Load Type : <br><span style="color: #0080ff;"><b>  Maximum Load</b></span></p>
+					{% endif %}
+					<br>
+					
+					<div class="form-wrapper">
+						<input type="number" name='Usage Kwh' placeholder="Usage Kwh" class="form-control" min=0 >
+					</div>
+					<div class="form-group">
+						<input type="number" name = 'Lagging Current KVAR' placeholder="Lagging Current KVAR" class="form-control" min =0.0 max=100.0>
+						<input type="number" name = 'Leading Current KVAR' placeholder="Leading Current KVAR" class="form-control" min=0.0 max = 100.0>
+					</div>
+					<div class="form-wrapper">
+						<input type="number" name = 'co2'placeholder="CO2(tCO2)" class="form-control" min=0.00 max = 0.07 step= 0.01>
+					</div>
+					
+					
+					<div class="form-group">
+						<input type="number" name = 'Lagging Current PF' placeholder="Lagging Current PF" class="form-control" min=0.0 max=100.0>
+						<input type="number" name ='Leading Current PF' placeholder="Leading Current PF" class="form-control" min=0.0 max =100.0>
+					</div>
+
+					<div class="form-wrapper">
+						<input type="number" name = 'NSM' placeholder="NSM" class="form-control" min=0 max=85500>
+					</div>
+					
+		
+					<div class="form-wrapper">
+						<select name="Week Status" id="weekstatus" class="form-control">
+							<option value="0">Weekday</option>
+							<option value="1">Weekend</option>
+						</select>
+						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+					</div>
+					<div class="form-wrapper">
+						<select name="Day Of Week" id="dayofweek" class="form-control">
+							<option value="1">Monday</option>
+							<option value="5">Tuesday</option>
+							<option value="4">Thursday</option>
+							<option value="0">Friday</option>
+							<option value="2">Saturday</option>
+							<option value="3">Sunday</option>
+							<option value= "6" >Wednesday</option>
+						</select>
+						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+					</div>
+					<div class="form-wrapper">
+						<select name="month" id="" class="form-control">
+							<option value="" disabled selected>Month</option>
+							<option value="4">January</option>
+							<option value="7">March</option>
+							<option value="8">May</option>
+							<option value="5">July</option>
+							<option value="1">August</option>
+							<option value="10">October</option>
+							<option value="2">December</option>
+							<option value="0">April</option>
+							<option value="6">June</option>
+							<option value="11">September</option>
+							<option value="9">November</option>
+							<option value="3">February</option>
+						</select>
+						<i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+					</div>
+					<div class="form-wrapper">
+						<input type="number" name = 'hour'placeholder="Hour" class="form-control" min=0 , max=23>
+					</div>
+					
+					
+					<button> Predict Steel Type
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<script>
+			document.getElementById('weekstatus').addEventListener('change', function() {
+				var dayOfWeekSelect = document.getElementById('dayofweek');
+				var weekstatus = parseInt(this.value);
+		
+				// Clear existing options
+				dayOfWeekSelect.innerHTML = '';
+		
+				if (weekstatus === 1) { // Weekend
+					dayOfWeekSelect.add(new Option('Saturday', '2'));
+					dayOfWeekSelect.add(new Option('Sunday', '3'));
+				} else { // Weekday
+					dayOfWeekSelect.add(new Option('Monday', '1'));
+					dayOfWeekSelect.add(new Option('Tuesday', '5'));
+					dayOfWeekSelect.add(new Option('Thursday', '4'));
+					dayOfWeekSelect.add(new Option('Friday', '0'));
+					dayOfWeekSelect.add(new Option('Saturday', '2'));
+					dayOfWeekSelect.add(new Option('Sunday', '3'));
+					dayOfWeekSelect.add(new Option('Wednesday', '6'));
+				}
+			});
+		</script>
+
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
